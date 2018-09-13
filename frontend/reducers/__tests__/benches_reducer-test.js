@@ -5,22 +5,22 @@ import * as BenchActions from "../../actions/bench_actions";
 /*
 NOTE: Our frontend state shape looks like this:
 {
-  benches: {
-    1: {
-        id: 1,
-        description: "...",
-        lat: 0.0,
-        lng: 0.0
-      },
-    2: {
-      id: 2,
-      description: "...",
-      lat: 0.0,
-      lng: 0.0
-    },
-    ...
-  }
-  ...
+benches: {
+1: {
+id: 1,
+description: "...",
+lat: 0.0,
+lng: 0.0
+},
+2: {
+id: 2,
+description: "...",
+lat: 0.0,
+lng: 0.0
+},
+...
+}
+...
 }
 */
 
@@ -54,6 +54,29 @@ describe("handling the RECEIVE_BENCHES action", () => {
 
   test("should not modify the old state", () => {
     // Your code here
-    
+    const addState = {1: "hello world"};
+    BenchesReducer(addState, action);
+    expect(addState).toEqual({1: "hello world"});
   });
+});
+
+describe("test RECEIVE_BENCH", () => {
+
+  let action;
+
+  beforeEach(() => {
+    // Set up the action that will be passed into the reducer:
+    // Your code here
+
+    action = {
+      type: BenchActions.RECEIVE_BENCH,
+      bench: newBench
+    }
+
+  });
+  test("should replace the state with the action's bench", ()=>{
+    let oldState = {1: "somethin"};
+    expect(BenchesReducer(testBenches, action)).toEqual(Object.assign({}, testBenches, newBench));
+  });
+
 });
